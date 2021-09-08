@@ -1,7 +1,6 @@
 //Import Modules
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
-const cTable = require("console.table");
 
 //Setting up DB connection
 const db = mysql.createConnection(
@@ -133,7 +132,7 @@ function addRole() {
       db.query(
         `INSERT INTO roles (title, salary, department_id) VALUES (/)`,
         [response.roleName, response.roleSalary, deptID],
-        (err, results) => {
+        (err, _results) => {
           if (err) throw err;
           console.log("New Role Succesfully Added");
           returnManager();
@@ -141,3 +140,136 @@ function addRole() {
       );
     });
 }
+
+//Add department to database
+function addDepartment() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "deptName",
+        message: "What department you want to add?",
+      },
+    ])
+    .then((response) => {
+      db.query(
+        `INSERT INTO departments (dept_name) VALUES(/)`,
+        [response.deptName],
+        (err, _results) => {
+          if (err) throw err;
+          console.log("New Dept added");
+          returnSystem();
+        }
+      );
+    });
+}
+
+//Add Employees to Database
+async function addEmployee() {
+  let roles = await db.promise().query(`SELECT title FROM roles`);
+  let roleContainer = [];
+  roles[0].forEach((object) => {
+    roleContainer.push(object["title"]);
+  });
+
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "employeeFirstName",
+        message: "First Name?",
+      },
+      {
+        type: "input",
+        name: "employeeLastName",
+        message: "Last Name?",
+      },
+      {
+        type: "list",
+        name: "role",
+        message: "Role?",
+        choices: roleContainer,
+      },
+      {
+        type: "list",
+        name: "manager",
+        message: "Choose Manager or select Not Applicable If None",
+        choices: ["Not Applicable"],
+      },
+    ])
+    .then(async (response) => {
+      let roleID = await db
+        .promise()
+        .query(`SELECT id FROM roles WHERE title = "${response.role}"`);
+      roleID[0].forEach((object) => {
+        roleID = object["id"];
+      });
+
+      db.query(
+        `INSERT INTO employees (first_name, last_name, role_id) VALUES (/)`,
+        [response.empFirstName, response.empLastName, roleID],
+        (err, _results) => {
+          if (err) throw err;
+          console.log("New Employee Succesfully Added");
+          returnManager();
+        }
+      );
+    });
+}
+
+// UPDATE EMPLOYEE
+async function updateEmployeeRole() {
+  let employees = await db
+    .promise()
+    .query(`SELECT CONCAT (first_name," ",last_name) AS name FROM employees`);
+  let employeeContainer = [];
+  employees[0].forEach((object) => {
+    employeeContainer.push(object["name"]);
+  });
+
+  let roles = await db.promise().query(`SELECT title FROM roles`);
+  let roleContainer = [];
+  roles[0].forEach((object) => {
+    roleContainer.push(object["title"]);
+  });
+
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "employeeName",
+        message: "Select Employee To Update",
+        choices: employeeContainer,
+      },
+      {
+        type: "list",
+        name: "role",
+        message: "Select New Role to Assign To Employee",
+        choices: roleContainer,
+      },
+    ])
+    .then(async (response) => {
+      let roleID = await db
+        .promise()
+        .query(`SELECT id FROM roles WHERE title = "${response.role}"`);
+      roleID[0].forEach((object) => {
+        roleID = object["id"];
+      });
+
+      db.query(
+        `UPDATE employees SET role_id="${roleID}" WHERE CONCAT (first_name," ",last_name)="${response.empName}"`,
+        (err, _results) => {
+          if (err) throw err;
+          console.log("Employee Updated");
+          returnSystem();
+        }
+      );
+    });
+}
+
+// RELAUNCH OPTIONS
+function returnSystem() {
+  startSystem();
+}
+
+beginSystem();
