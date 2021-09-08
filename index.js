@@ -1,63 +1,63 @@
 //Import Modules
-
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
-const { exit } = require("process");
+const cTable = require("console.table");
 
-//Create DB connection
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "employee_db",
-});
+//Setting up DB connection
+const db = mysql.createConnection(
+  {
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "employee_db",
+  },
+  console.log(`Connected to Database.`)
+);
 
-//Prompt
-function employeeTracking() {
+//Start inquirer
+function startSystem() {
   inquirer
     .prompt([
       {
         type: "list",
-        message: "What you want to do with this app?",
-        name: "promptSelection",
+        message: "Choose your options",
+        name: "PromptSelector",
         choices: [
-          "View all employees",
-          "View all roles of every employees",
-          "Add new employee",
-          "Add new role",
-          "Update new employee role",
-          "View all departments",
-          "Add new department",
-          "Exit",
+          "View All Employees",
+          "Add Employee",
+          "Update Employee Role",
+          "View All Roles",
+          "Add Role",
+          "View All Departments",
+          "Quit",
         ],
       },
     ])
-
     .then((prompt) => {
-      switch (prompt.promptSelection) {
-        case "View all employees":
+      switch (prompt.promptSelector) {
+        case "View All Employees":
           viewEmployees();
           break;
-        case "View all roles of every employees":
-          viewRoles();
-          break;
-        case "Add new employee":
+        case "Add Employee":
           addEmployee();
           break;
-        case "Add new role":
+        case "Update Employee Role":
+          updateEmployeeRole();
+          break;
+        case "View All Roles":
+          viewRoles();
+          break;
+        case "Add Role":
           addRole();
           break;
-        case "Update new employee role":
-          updateRole();
+        case "View All Departments":
+          viewDepartments();
           break;
-        case "View all departments":
-          viewDepartment();
+        case "Add Department":
+          addDepartment();
           break;
-        case "Add new department":
-          addNewdepartment();
-          break;
-        case "Exit":
-          endTask();
+        case "Quit":
+          endManager();
           break;
       }
     });
