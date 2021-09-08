@@ -100,36 +100,44 @@ function viewRoles() {
   );
 }
 
-
-//Add roles 
+//Add roles
 function addRole() {
   inquirer
-      .prompt([{
-              type: 'input',
-              name: 'roleName',
-              message: 'Which role you want to add?'
-          },
-          {
-              type: 'input',
-              name: 'roleSalary',
-              message: 'What Is The Salary?'
-          },
-          {
-              type: 'list',
-              name: 'department',
-              message: 'What Department',
-              choices: [
-                  "Marketing",
-                  "Finance",
-                  "Admin",
-                  "Engineering",
-              ]
-          }
-      ])
-      .then (async (response) => {
-        let deptID = await db.promise().query(`SELECT id FROM departments WHERE dept_name = "${response.department}"`)
-        deptID[0].forEach(object => {
-          deptID = object["id"]
-        });
-        
-      })
+    .prompt([
+      {
+        type: "input",
+        name: "roleName",
+        message: "Which role you want to add?",
+      },
+      {
+        type: "input",
+        name: "roleSalary",
+        message: "What Is The Salary?",
+      },
+      {
+        type: "list",
+        name: "department",
+        message: "What Department",
+        choices: ["Marketing", "Finance", "Admin", "Engineering"],
+      },
+    ])
+    .then(async (response) => {
+      let deptID = await db
+        .promise()
+        .query(
+          `SELECT id FROM departments WHERE dept_name = "${response.department}"`
+        );
+      deptID[0].forEach((object) => {
+        deptID = object["id"];
+      });
+      db.query(
+        `INSERT INTO roles (title, salary, department_id) VALUES (/)`,
+        [response.roleName, response.roleSalary, deptID],
+        (err, results) => {
+          if (err) throw err;
+          console.log("New Role Succesfully Added");
+          returnManager();
+        }
+      );
+    });
+}
