@@ -20,5 +20,5 @@ VALUES ("Marketing Manager", 50000, 1),
               ("Josh", "kale", 5, 3),
               ("Montana" "ron", 7, 4),
               ("Nahid", "Hasan", 6, 3),
-              ("Roony", "Pitaar", 8,4)
+              ("Roony", "Pitaar", 8,4);
  
