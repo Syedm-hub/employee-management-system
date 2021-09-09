@@ -1,4 +1,4 @@
-INSERT INTO departments (department_name)
+INSERT INTO departments (dept_name)
 VALUES ("Marketing"), ("Finance"), ("Admin"), ("Engineering");
 
 INSERT INTO roles (title, salary, department_id)
@@ -15,10 +15,10 @@ VALUES ("Marketing Manager", 50000, 1),
        INSERT INTO employees (first_name, last_name, role_id, manager_id)
        VALUES ("Syed", "Morshed", 1, 1),
               ("Shaon", "kole", 2, 1),
-              ("Saif", "Hossain", 2, 2),
-              ("Rifat", "Hasan", 3, 2),
+              ("Saif", "Hossain", 3, 2),
+              ("Rifat", "Hasan", 4, 2),
               ("Josh", "kale", 5, 3),
-              ("Montana" "ron", 7, 4),
-              ("Nahid", "Hasan", 6, 3),
+              ("Montana" "ron", 6, 4),
+              ("Nahid", "Hasan", 7, 3),
               ("Roony", "Pitaar", 8,4);
  

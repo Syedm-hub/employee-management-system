@@ -8,7 +8,7 @@ const db = mysql.createConnection(
     host: "localhost",
     user: "root",
     password: "",
-    database: "employee_db",
+    database: "employees_db",
   },
   console.log(`Connected to Database.`)
 );
@@ -272,4 +272,4 @@ function returnSystem() {
   startSystem();
 }
 
-beginSystem();
+startSystem();
