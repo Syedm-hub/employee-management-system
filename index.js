@@ -56,7 +56,7 @@ function startSystem() {
           addDepartment();
           break;
         case "Quit":
-          endManager();
+          endSystem();
           break;
       }
     });
@@ -135,7 +135,7 @@ function addRole() {
         (err, _results) => {
           if (err) throw err;
           console.log("New Role Succesfully Added");
-          returnManager();
+          returnSystem();
         }
       );
     });
@@ -211,7 +211,7 @@ async function addEmployee() {
         (err, _results) => {
           if (err) throw err;
           console.log("New Employee Succesfully Added");
-          returnManager();
+          returnSystem();
         }
       );
     });
