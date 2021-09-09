@@ -1,7 +1,13 @@
-INSERT INTO departments (dept_name)
-VALUES ("Marketing"), ("Finance"), ("Admin"), ("Engineering");
+USE employees_db;
+INSERT INTO department (name)
+ VALUES ("Marketing"),
+		("Finance"),
+		("Admin"),
+		("Engineering");
+		
 
-INSERT INTO roles (title, salary, department_id)
+
+INSERT INTO role (title, salary, department_ID) 
 VALUES ("Marketing Manager", 50000, 1),
        ("Marketing Executive", 40000, 1),
        ("Controller", 60000, 2),
@@ -12,13 +18,24 @@ VALUES ("Marketing Manager", 50000, 1),
        ("OS Developer", 60000, 4);
 
 
-       INSERT INTO employees (first_name, last_name, role_id, manager_id)
-       VALUES ("Syed", "Morshed", 1, 1),
-              ("Shaon", "kole", 2, 1),
-              ("Saif", "Hossain", 3, 2),
-              ("Rifat", "Hasan", 4, 2),
-              ("Josh", "kale", 5, 3),
-              ("Montana" "ron", 6, 4),
-              ("Nahid", "Hasan", 7, 3),
-              ("Roony", "Pitaar", 8,4);
+USE employees_db;
+
+INSERT INTO employee (first_name, last_name, role_id, manager_id) 
+VALUES  ("Syed", "Morshed", 1, NULL ),
+		("Shaon", "Kole", 2, 1),
+		("Saif", "Hossain", 3, NULL),
+		("Rifat", "Hasan", 4, 3),
+		("Josh", "Kale", 5, 3),
+		("Montana", "Ron", 6, NULL),
+		("Nahid", "Hasan", 7, 6),
+		("Roony", "Pitar",8, 6);
+        
+
+
+
+
+
+
+
+       
  
