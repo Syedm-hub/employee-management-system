@@ -5,9 +5,8 @@ var connection = mysql.createConnection({
   port: 3306,
   // MySQL Workbench
   user: "root",
-  password: "Piforpa12347890@",
-
-  database: "employeesDB",
+  //Use your database password
+  password: "",
 });
 //connecting database
 connection.connect(function (err) {
