@@ -17,7 +17,7 @@
 
 ## Go Through Video
 
-Link: https://drive.google.com/file/d/10b8JeyiBlCfN6js3F7idQD2QM9u75PIP/view
+Link: https://watch.screencastify.com/v/0c6mHx39e1CbbiIKLVIU
 
 ## Let's Connect
 
